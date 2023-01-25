@@ -3,7 +3,7 @@ import Input from "../../UI/Input";
 import React, { useRef, useState } from "react";
 
 const MealItemForm = (props) => {
-  const [amountIsValid, setAmountIsValid] = useState(false);
+  const [amountIsValid, setAmountIsValid] = useState(true);
   const amountInputRef = useRef();
   const submitHandler = (event) => {
     event.preventDefault();
