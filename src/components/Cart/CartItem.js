@@ -15,7 +15,7 @@ const CartItem = (props) => {
       </div>
       <div className={classes.action}>
         <button onClick={props.onRemove}>-</button>
-        <button onClick={props.OnAdd}>+</button>
+        <button onClick={props.onAdd}>+</button>
       </div>
     </li>
   );
