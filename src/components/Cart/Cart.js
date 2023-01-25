@@ -14,6 +14,9 @@ const Cart = (props) => {
   const onRemoveHandler = (id) => {
     cartCtx.removeItem(id);
   };
+  const onOrderHandler = () => {
+    console.log("ORDERING ......");
+  };
 
   const cartItems = (
     <ul className={classes["cart-items"]}>
@@ -40,7 +43,11 @@ const Cart = (props) => {
         <button className={classes["button--alt"]} onClick={props.onCloseCart}>
           Close
         </button>
-        {hasItems && <button className={classes.button}>Order</button>}
+        {hasItems && (
+          <button className={classes.button} onClick={onOrderHandler}>
+            Order
+          </button>
+        )}
       </div>
     </Modal>
   );
