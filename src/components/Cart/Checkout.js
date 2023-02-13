@@ -22,7 +22,7 @@ const Checkout = (props) => {
     const enteredStreet = streetRef.current.value;
     const enteredCity = cityRef.current.value;
     const enteredZip = zipRef.current.value;
-    console.log(enteredName, enteredStreet, enteredCity, enteredZip);
+    // console.log(enteredName, enteredStreet, enteredCity, enteredZip);
     const isNameValid = !isEmpty(enteredName);
     const isStreetValid = !isEmpty(enteredStreet);
     const isCityValid = !isEmpty(enteredCity);
@@ -37,6 +37,16 @@ const Checkout = (props) => {
 
     const isFormValid =
       isNameValid && isStreetValid && isCityValid && isZipValid;
+    if (!isFormValid) {
+      console.log("form invalid..returning");
+      return;
+    }
+    props.onConfirm({
+      name: enteredName,
+      street: enteredStreet,
+      city: enteredCity,
+      zip: enteredZip,
+    });
   };
 
   return (
