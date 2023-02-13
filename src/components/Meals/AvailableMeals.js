@@ -6,12 +6,16 @@ import { useState, useEffect } from "react";
 const AvailableMeals = (props) => {
   const [mealsFromDB, setMealsFromDB] = useState([]);
   const [isLoading, SetIsLoading] = useState(true);
+  const [httpError, setHttpError] = useState(null);
 
   useEffect(() => {
     const fetchMeals = async () => {
       const response = await fetch(
         "https://react-food-delivery-app-8d42c-default-rtdb.firebaseio.com/meals.json"
       );
+      if (!response.ok) {
+        throw new Error("Something went wrong!");
+      }
       const responseData = await response.json();
 
       const loadedMeals = [];
@@ -26,7 +30,10 @@ const AvailableMeals = (props) => {
       setMealsFromDB(loadedMeals);
       SetIsLoading(false);
     };
-    fetchMeals();
+    fetchMeals().catch((error) => {
+      SetIsLoading(false);
+      setHttpError(error.message);
+    });
   }, []);
   const meals = mealsFromDB.map((meal) => (
     <MealItem
@@ -43,6 +50,15 @@ const AvailableMeals = (props) => {
     return (
       <section className={classes.mealsLoading}>
         <p>Loading..</p>
+      </section>
+    );
+  }
+
+  if (httpError) {
+    console.log("httpError");
+    return (
+      <section className={classes.mealsError}>
+        <p>{httpError}. Cannot fetch meals data!</p>
       </section>
     );
   }
